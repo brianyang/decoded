@@ -13,10 +13,17 @@ define [], ->
     success: (e) ->
         console.log e
         imgArr = []
+        imgTitle = []
         $(e.skimlinksProductAPI.products).each ->
-            imgArr.push @imageUrl
+            console.log @
+            imgArr.push
+              imageUrl:@imageUrl
+              imageTitle:@title
+              imageLink: @url
+            console.log imgArr
         $(imgArr).each ->
-            wrap = '<a data-gallery=""href=# ><img src=' + @ + ' /></a>'
+            console.log @
+            wrap = '<a data-gallery="gallery" href=' + @imageUrl + ' ><img title=' + @imageTitle + ' src=' + @imageUrl + ' /></a>'
             $('#gallery').append(wrap)
 
         $('img').height('100')
@@ -27,9 +34,34 @@ define [], ->
       $('#gallery').fadeIn(->
         $('img').each ->
           $(@).hide() if $(@).width() > 150
+          $(@).tooltip()
       )
   )
 
+  $("#start-slideshow").button().click ->
+    options = $(this).data()
+    modal = $(options.target)
+    data = modal.data("modal")
+    if data
+      $.extend data.options, options
+    else
+      options = $.extend(modal.data(), options)
+    modal.find(".modal-slideshow").find("i").removeClass("icon-play").addClass "icon-pause"
+    modal.modal options
+
+
+# Toggle fullscreen button:
+  $("#toggle-fullscreen").button().click ->
+    button = $(this)
+    root = document.documentElement
+    unless button.hasClass("active")
+      $("#modal-gallery").addClass "modal-fullscreen"
+      if root.webkitRequestFullScreen
+        root.webkitRequestFullScreen window.Element.ALLOW_KEYBOARD_INPUT
+      else root.mozRequestFullScreen()  if root.mozRequestFullScreen
+    else
+      $("#modal-gallery").removeClass "modal-fullscreen"
+      (document.webkitCancelFullScreen or document.mozCancelFullScreen or $.noop).apply document
 
 
 

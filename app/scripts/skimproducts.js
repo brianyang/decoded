@@ -18,31 +18,71 @@
       url: 'scripts/skim.json',
       dataType: 'json',
       success: function(e) {
-        var imgArr;
+        var imgArr, imgTitle;
         console.log(e);
         imgArr = [];
+        imgTitle = [];
         $(e.skimlinksProductAPI.products).each(function() {
-          return imgArr.push(this.imageUrl);
+          console.log(this);
+          imgArr.push({
+            imageUrl: this.imageUrl,
+            imageTitle: this.title,
+            imageLink: this.url
+          });
+          return console.log(imgArr);
         });
         $(imgArr).each(function() {
           var wrap;
-          wrap = '<a data-gallery=""href=# ><img src=' + this + ' /></a>';
+          console.log(this);
+          wrap = '<a data-gallery="gallery" href=' + this.imageUrl + ' ><img title=' + this.imageTitle + ' src=' + this.imageUrl + ' /></a>';
           return $('#gallery').append(wrap);
         });
         return $('img').height('100');
       }
     });
-    return req.done(function() {
+    req.done(function() {
       $('#gallery').hide();
       return $('#product-nav').bind('click', function() {
         return $('#gallery').fadeIn(function() {
           return $('img').each(function() {
             if ($(this).width() > 150) {
-              return $(this).hide();
+              $(this).hide();
             }
+            return $(this).tooltip();
           });
         });
       });
+    });
+    $("#start-slideshow").button().click(function() {
+      var data, modal, options;
+      options = $(this).data();
+      modal = $(options.target);
+      data = modal.data("modal");
+      if (data) {
+        $.extend(data.options, options);
+      } else {
+        options = $.extend(modal.data(), options);
+      }
+      modal.find(".modal-slideshow").find("i").removeClass("icon-play").addClass("icon-pause");
+      return modal.modal(options);
+    });
+    return $("#toggle-fullscreen").button().click(function() {
+      var button, root;
+      button = $(this);
+      root = document.documentElement;
+      if (!button.hasClass("active")) {
+        $("#modal-gallery").addClass("modal-fullscreen");
+        if (root.webkitRequestFullScreen) {
+          return root.webkitRequestFullScreen(window.Element.ALLOW_KEYBOARD_INPUT);
+        } else {
+          if (root.mozRequestFullScreen) {
+            return root.mozRequestFullScreen();
+          }
+        }
+      } else {
+        $("#modal-gallery").removeClass("modal-fullscreen");
+        return (document.webkitCancelFullScreen || document.mozCancelFullScreen || $.noop).apply(document);
+      }
     });
   });
 
