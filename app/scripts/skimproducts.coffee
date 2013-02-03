@@ -24,8 +24,8 @@ define [], ->
             #console.log imgArr
         $(imgArr).each ->
             #console.log @
-            wrap = '<div class=float><a data-gallery="gallery" href=' + @imageUrl + ' ><img data-merchant="' + @merchant + '" title=' + @imageTitle + ' src=' + @imageUrl +
-              ' /></a><br><a class="btn btn-primary" href="' + @imageLink + '">buy now</a></div>'
+            wrap = '<div class="wrap float"><a data-gallery="gallery" href=' + @imageUrl + ' ><img data-url"' + @imageLink + '" data-merchant="' + @merchant + '" title=' + @imageTitle + ' src=' + @imageUrl +
+              ' /></a><br></div>'
             $('#gallery').append(wrap) if @imageUrl != ''
             $('.float').css('float','left')
 
@@ -38,8 +38,9 @@ define [], ->
         $('img').each ->
           $(@).parent().parent().hide() if $(@).width() > 150
           $(@).tooltip()
-
       )
+    $('.wrap>a>img').on 'click', ->
+      console.log 'replace buy link'
   )
 
   $("#start-slideshow").button().click ->

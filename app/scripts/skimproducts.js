@@ -31,7 +31,7 @@
         });
         $(imgArr).each(function() {
           var wrap;
-          wrap = '<div class=float><a data-gallery="gallery" href=' + this.imageUrl + ' ><img data-merchant="' + this.merchant + '" title=' + this.imageTitle + ' src=' + this.imageUrl + ' /></a><br><a class="btn btn-primary" href="' + this.imageLink + '">buy now</a></div>';
+          wrap = '<div class="wrap float"><a data-gallery="gallery" href=' + this.imageUrl + ' ><img data-url"' + this.imageLink + '" data-merchant="' + this.merchant + '" title=' + this.imageTitle + ' src=' + this.imageUrl + ' /></a><br></div>';
           if (this.imageUrl !== '') {
             $('#gallery').append(wrap);
           }
@@ -42,7 +42,7 @@
     });
     req.done(function() {
       $('#gallery').hide();
-      return $('#product-nav').bind('click', function() {
+      $('#product-nav').bind('click', function() {
         return $('#gallery').fadeIn(function() {
           return $('img').each(function() {
             if ($(this).width() > 150) {
@@ -51,6 +51,9 @@
             return $(this).tooltip();
           });
         });
+      });
+      return $('.wrap>a>img').on('click', function() {
+        return console.log('replace buy link');
       });
     });
     $("#start-slideshow").button().click(function() {
