@@ -15,14 +15,17 @@ define [], ->
         imgArr = []
         $(e.skimlinksProductAPI.products).each ->
             imgArr.push @imageUrl
-        console.log imgArr
         $(imgArr).each ->
             wrap = '<a data-gallery=""href=# ><img src=' + @ + ' /></a>'
             $('#gallery').append(wrap)
 
         $('img').height('100')
-        $('img').each ->
-          $(@).hide() if $(@).width() > 150
+
+  req.done(->
+    $('img').each ->
+      $(@).hide() if $(@).width() > 150
+  )
+
 
 
 

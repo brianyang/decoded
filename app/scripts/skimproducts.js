@@ -14,7 +14,7 @@
     });
     "Hello from skim!";
 
-    return req = $.ajax({
+    req = $.ajax({
       url: 'scripts/skim.json',
       dataType: 'json',
       success: function(e) {
@@ -24,19 +24,20 @@
         $(e.skimlinksProductAPI.products).each(function() {
           return imgArr.push(this.imageUrl);
         });
-        console.log(imgArr);
         $(imgArr).each(function() {
           var wrap;
           wrap = '<a data-gallery=""href=# ><img src=' + this + ' /></a>';
           return $('#gallery').append(wrap);
         });
-        $('img').height('100');
-        return $('img').each(function() {
-          if ($(this).width() > 150) {
-            return $(this).hide();
-          }
-        });
+        return $('img').height('100');
       }
+    });
+    return req.done(function() {
+      return $('img').each(function() {
+        if ($(this).width() > 150) {
+          return $(this).hide();
+        }
+      });
     });
   });
 
