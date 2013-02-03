@@ -19,25 +19,25 @@
       dataType: 'json',
       success: function(e) {
         var imgArr, imgTitle;
-        console.log(e);
         imgArr = [];
         imgTitle = [];
         $(e.skimlinksProductAPI.products).each(function() {
-          console.log(this);
-          imgArr.push({
+          return imgArr.push({
             imageUrl: this.imageUrl,
             imageTitle: this.title,
-            imageLink: this.url
+            imageLink: this.url,
+            merchant: this.categorisation.merchantCategory
           });
-          return console.log(imgArr);
         });
         $(imgArr).each(function() {
           var wrap;
-          console.log(this);
-          wrap = '<a data-gallery="gallery" href=' + this.imageLink + ' ><img title=' + this.imageTitle + ' src=' + this.imageUrl + ' /></a>';
-          return $('#gallery').append(wrap);
+          wrap = '<div class=float><a data-gallery="gallery" href=' + this.imageUrl + ' ><img data-merchant="' + this.merchant + '" title=' + this.imageTitle + ' src=' + this.imageUrl + ' /></a><br><a class="btn btn-primary" href="' + this.imageLink + '">buy now</a></div>';
+          if (this.imageUrl !== '') {
+            $('#gallery').append(wrap);
+          }
+          return $('.float').css('float', 'left');
         });
-        return $('img').height('100');
+        return $('img').height('100').css('min-width', '200');
       }
     });
     req.done(function() {
@@ -46,7 +46,7 @@
         return $('#gallery').fadeIn(function() {
           return $('img').each(function() {
             if ($(this).width() > 150) {
-              $(this).hide();
+              $(this).parent().parent().hide();
             }
             return $(this).tooltip();
           });
