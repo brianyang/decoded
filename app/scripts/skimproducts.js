@@ -2,16 +2,42 @@
 (function() {
 
   define([], function() {
-    var url;
-    url = 'http://api-product.skimlinks.com/query?q=skincare&version=3&key=b0e88fffc03968a3bd2bf7e49b962e8f';
+    var req, url;
+    url = 'skim.json';
     console.log(url);
     $.ajax({
       url: url,
+      dataType: 'json',
       success: function() {
         return console.log('done');
       }
     });
-    return "Hello from skim!";
+    "Hello from skim!";
+
+    return req = $.ajax({
+      url: 'scripts/skim.json',
+      dataType: 'json',
+      success: function(e) {
+        var imgArr;
+        console.log(e);
+        imgArr = [];
+        $(e.skimlinksProductAPI.products).each(function() {
+          return imgArr.push(this.imageUrl);
+        });
+        console.log(imgArr);
+        $(imgArr).each(function() {
+          var wrap;
+          wrap = '<a data-gallery=""href=# ><img src=' + this + ' /></a>';
+          return $('#gallery').append(wrap);
+        });
+        $('img').height('100');
+        return $('img').each(function() {
+          if ($(this).width() > 150) {
+            return $(this).hide();
+          }
+        });
+      }
+    });
   });
 
 }).call(this);
