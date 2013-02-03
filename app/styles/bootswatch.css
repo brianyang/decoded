@@ -207,7 +207,7 @@ section {
 
 .links > a {
 	margin-right: 10px;
-} 
+}
 
 div.one .bsa_it_ad {
 	padding: 25px 25px 15px 25px;
@@ -361,6 +361,10 @@ body .one .bsa_it_p {
 		padding: 8px 12px;
 		font-size: 12px;
 	}
+}
+
+.btn{
+  margin-bottom:40px;
 }
 
 /* Fixed subnav on scroll, but only for 980px and up (sorry IE!) */

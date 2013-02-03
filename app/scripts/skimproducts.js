@@ -34,7 +34,7 @@
         $(imgArr).each(function() {
           var wrap;
           console.log(this);
-          wrap = '<a data-gallery="gallery" href=' + this.imageUrl + ' ><img title=' + this.imageTitle + ' src=' + this.imageUrl + ' /></a>';
+          wrap = '<a data-gallery="gallery" href=' + this.imageLink + ' ><img title=' + this.imageTitle + ' src=' + this.imageUrl + ' /></a>';
           return $('#gallery').append(wrap);
         });
         return $('img').height('100');

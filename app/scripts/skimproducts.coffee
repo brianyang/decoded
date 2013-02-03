@@ -11,30 +11,34 @@ define [], ->
     url:'scripts/skim.json'
     dataType:'json'
     success: (e) ->
-        console.log e
+        #console.log e
         imgArr = []
         imgTitle = []
         $(e.skimlinksProductAPI.products).each ->
-            console.log @
+            #console.log @
             imgArr.push
               imageUrl:@imageUrl
               imageTitle:@title
               imageLink: @url
-            console.log imgArr
+              merchant:@categorisation.merchantCategory
+            #console.log imgArr
         $(imgArr).each ->
-            console.log @
-            wrap = '<a data-gallery="gallery" href=' + @imageUrl + ' ><img title=' + @imageTitle + ' src=' + @imageUrl + ' /></a>'
-            $('#gallery').append(wrap)
+            #console.log @
+            wrap = '<div class=float><a data-gallery="gallery" href=' + @imageUrl + ' ><img data-merchant="' + @merchant + '" title=' + @imageTitle + ' src=' + @imageUrl +
+              ' /></a><br><a class="btn btn-primary" href="' + @imageLink + '">buy now</a></div>'
+            $('#gallery').append(wrap) if @imageUrl != ''
+            $('.float').css('float','left')
 
-        $('img').height('100')
+        $('img').height('100').css('min-width','200')
 
   req.done(->
     $('#gallery').hide()
     $('#product-nav').bind 'click', ->
       $('#gallery').fadeIn(->
         $('img').each ->
-          $(@).hide() if $(@).width() > 150
+          $(@).parent().parent().hide() if $(@).width() > 150
           $(@).tooltip()
+
       )
   )
 
