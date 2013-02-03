@@ -13,10 +13,12 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
 
-        <link rel="stylesheet" href="styles/bootstrap-responsive.min.css" title="" type="" />
         <link rel="stylesheet" href="styles/bootstrap.min.css" title="" type="" />
+        <link rel="stylesheet" href="styles/bootstrap-responsive.min.css" title="" type="" />
         <link rel="stylesheet" href="styles/bootswatch.css" title="" type="" />
         <script src="scripts/vendor/modernizr.min.js"></script>
+        <script src='https://swww.tokbox.com/webrtc/v2.0/js/TB.min.js'></script>
+
     </head>
     <body>
 
@@ -28,8 +30,8 @@
 <header class="jumbotron subhead" id="overview">
   <div class="row">
     <div class="span6">
-      <h1>Beauty Consultants</h1>
-      <p class="lead">live skincare consultants.</p>
+      <h1>chat live with our skincare experts</h1>
+      <p class="lead">buy skincare products</p>
     </div>
     <div class="span6">
     </div>
@@ -43,7 +45,25 @@
 </header>
 
 
+ <div id="myPublisherDiv"></div>
+        <script type="text/javascript">
+          // Initialize API key, session, and token...
+          // Think of a session as a room, and a token as the key to get in to the room
+          // Sessions and tokens are generated on your server and passed down to the client
+          var apiKey = "22773902";
+          var sessionId = "1_MX4yMjc3MzkwMn4xMjcuMC4wLjF-U2F0IEZlYiAwMiAxNTo0ODoyMyBQU1QgMjAxM34wLjM1NTczOTM2fg";
+          var token = "T1==cGFydG5lcl9pZD0yMjc3MzkwMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1iYzgyMmFjMmZhNzJlNjdhMzkxNWU3N2Q4MzljNjUwY2QwYmI3MWRhOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9JmNyZWF0ZV90aW1lPTEzNTk4NDg5MDMmbm9uY2U9MC4yNjgyNjM0MjA2MzE2MTEzNSZleHBpcmVfdGltZT0xMzU5OTM1MzAyJmNvbm5lY3Rpb25fZGF0YT0=";
 
+          // Initialize session, set up event listeners, and connect
+          var session = TB.initSession(sessionId);
+          session.addEventListener('sessionConnected', sessionConnectedHandler);
+          session.connect(apiKey, token);
+
+          function sessionConnectedHandler(event) {
+            var publisher = TB.initPublisher(apiKey, 'myPublisherDiv');
+            session.publish(publisher);
+          }
+        </script>
 
 <!-- Typography
 ================================================== -->
@@ -65,7 +85,7 @@
 
     <div class="span4">
       <h3>chat live now</h3>
-      <p>chat live with beauty consultants today.</p>
+      <p>This service lets you chat live with our skin care experts and get instant answers for any questions you might have..</p>
       <a href="#">start chat</a>
       <h3>flash sales</h3>
       <p>recently purchased items.</p>
@@ -148,6 +168,7 @@
     <script src="scripts/vendor/bootstrap/bootstrap-scrollspy.js"></script>
     <script src="scripts/vendor/bootstrap/bootstrap-collapse.js"></script>
     <script src="scripts/vendor/bootstrap/bootstrap-tab.js"></script>
+    <script type="text/javascript" src=scripts/bootstrap.min.js charset="utf-8"></script>
     <!-- endbuild -->
 
     <!-- build:js scripts/amd-app.js -->
