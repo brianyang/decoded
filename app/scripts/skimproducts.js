@@ -33,10 +33,15 @@
       }
     });
     return req.done(function() {
-      return $('img').each(function() {
-        if ($(this).width() > 150) {
-          return $(this).hide();
-        }
+      $('#gallery').hide();
+      return $('#product-nav').bind('click', function() {
+        return $('#gallery').fadeIn(function() {
+          return $('img').each(function() {
+            if ($(this).width() > 150) {
+              return $(this).hide();
+            }
+          });
+        });
       });
     });
   });

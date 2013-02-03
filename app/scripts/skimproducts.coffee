@@ -22,8 +22,12 @@ define [], ->
         $('img').height('100')
 
   req.done(->
-    $('img').each ->
-      $(@).hide() if $(@).width() > 150
+    $('#gallery').hide()
+    $('#product-nav').bind 'click', ->
+      $('#gallery').fadeIn(->
+        $('img').each ->
+          $(@).hide() if $(@).width() > 150
+      )
   )
 
 
